@@ -1,0 +1,14 @@
+// Example App
+
+{
+  "run_list": [
+    "role[base]",
+    "role[webserver]",
+    "role[appserver]",
+    "role[caching]",
+    "role[database]",
+    "role[jobs]"
+  ],
+  "app_name" : "my_rails_app"
+  "data_bag" : "my-rails-app"
+}

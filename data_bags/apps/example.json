@@ -1,0 +1,17 @@
+{
+  "id": "my-rails-app",
+  "user" : {
+    "name" : "deploy",
+    //openssl passwd -1 "plantextpassword"
+    "password" : "output-of-above-command-here",
+    "allowed_ssh_keys" : ["your-public-ssh-key-here"]
+  },
+  "postgres" : {
+    // needs to be an md5 hash of passwordusername with md5 prepended
+    // we always create a user with the app_name as the username, so it should be an md5 of passwordapp_name, with md5 prepended
+    "app_password" : "md5plus-output-here",
+    "password" : "md5plus-output-here", //password for the postgres user, an md5 of passwordpostgres
+    "allowed_app_servers" : ["127.0.0.1"]
+  },
+  "rails_env" : "production"
+}
