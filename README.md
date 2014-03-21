@@ -9,20 +9,20 @@ Getting Started
  cd rails-chef
  gem install knife-solo
  gem install berkshelf
- ```
+```
 
- Adding an app
- -------------
+Adding an app
+-------------
 
- ### Add a databag
+### Add a databag
 
- Add a file to ```databags/apps/```, similar to the example in that directory. To generate a password for the deploy user, you can do ```openssl passwd -1 "plantextpassword"``` and replace the user password with the output of that command.
+Add a file to ```databags/apps/```, similar to the example in that directory. To generate a password for the deploy user, you can do ```openssl passwd -1 "plantextpassword"``` and replace the user password with the output of that command.
 
- In order to generate postgres passwords, you need to take the md5 hash of passwordapp_name, prepend it with the text "md5", and add that as the postgres app_password (e.g. the md5 of my_passwordmy_app is 31f512a71a75ddd5c0e41b189b8974b1, so you would put md531f512a71a75ddd5c0e41b189b8974b1 for the postgres app_password). You need to do the same for the postgres user, using the md5 of my_passwordpostgres.
+In order to generate postgres passwords, you need to take the md5 hash of passwordapp_name, prepend it with the text "md5", and add that as the postgres app_password (e.g. the md5 of my_passwordmy_app is 31f512a71a75ddd5c0e41b189b8974b1, so you would put md531f512a71a75ddd5c0e41b189b8974b1 for the postgres app_password). You need to do the same for the postgres user, using the md5 of my_passwordpostgres.
 
- ### Add a node
+### Add a node
 
- You also need to add a node for your app. It should be named with the IP or FQDN of your server (e.g. 123.123.123.123.json). You then need to populate the run list, similar to the ```nodes/example.json``` file. This file should also include your rails app name, and the data bag for the app. The value of the data_bag attribute in this file should match the id value in your databag.
+You also need to add a node for your app. It should be named with the IP or FQDN of your server (e.g. 123.123.123.123.json). You then need to populate the run list, similar to the ```nodes/example.json``` file. This file should also include your rails app name, and the data bag for the app. The value of the data_bag attribute in this file should match the id value in your databag.
 
 
 Setting Up a New Server
@@ -32,7 +32,7 @@ Prep the Server
 ---------------
 
 ```bash
- knife solo prepare username@123.123.123.123
+knife solo prepare username@123.123.123.123
 ```
 
 This will install chef-solo on the target machine.
@@ -42,13 +42,13 @@ Run Chef on the Server
 ----------------------
 
 ```bash
- knife solo cook username@123.123.123.123
+knife solo cook username@123.123.123.123
 ```
 
 or to specify a node to use:
 
 ```bash
- knife solo cook username@123.123.123.123 nodes/staging.json
+knife solo cook username@123.123.123.123 nodes/staging.json
 ```
 
 
@@ -66,7 +66,7 @@ Add MySQL deploy user password to the data-bag:
 
 ```javascript
 "mysql_configuration": {
-  "password": "app_password"
+"password": "app_password"
 }
 ```
 
@@ -74,12 +74,12 @@ Add MySQL server configuration to the MySQL server node:
 
 ```javascript
 "mysql": {
-  "server_debian_password": "abc",
-  "server_root_password": "def",
-  "server_repl_password": "ghi",
-  "client": {
-    "packages": ["mysql-client", "libmysqlclient-dev", "ruby-mysql"]
-  }
+"server_debian_password": "abc",
+"server_root_password": "def",
+"server_repl_password": "ghi",
+"client": {
+  "packages": ["mysql-client", "libmysqlclient-dev", "ruby-mysql"]
+}
 }
 
 ```
@@ -118,7 +118,7 @@ Adding a New Cookbook to site-cookbooks
 We add cookbooks that we created to the site-cookbooks folder, since Berkshelf manages community cookbooks in the cookbooks directory. You can add a new one via:
 
 ```bash
- knife cookbook create cookbook_name_here -o site-cookbooks/
+knife cookbook create cookbook_name_here -o site-cookbooks/
 ```
 
 
@@ -128,11 +128,11 @@ Adding New Community Cookbooks
 Add a line to the Berksfile such as 
 
 ```ruby
- cookbook 'nginx'
+cookbook 'nginx'
 ```
 
 Then run:
 
 ```bash
- berks install
+berks install
 ```
