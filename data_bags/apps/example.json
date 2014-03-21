@@ -13,6 +13,14 @@
     "password" : "md5plus-output-here", //password for the postgres user, an md5 of passwordpostgres
     "allowed_app_servers" : ["127.0.0.1"]
   },
+  "newrelic" : {
+    "license_key" : "new-relic-license-key-here"
+  },
+  "nginx" : {
+    "ssl_on" : true,
+    "ssl_cert_location": "path-to-your-ssl-cert",
+    "ssl_key_location": "path-to-your-ssl-key"
+  },
   "rails_env" : "production",
   "ruby": {
     "ruby-build-version" : "2.0.0-p353"

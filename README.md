@@ -1,37 +1,28 @@
+This chef kitchen was created for use with [Inked](https://www.inkedcrm.com) and [SecondCityBits](https://www.secondcitybits.com). Also, special thanks for contributions from the team at [Inkling Markets](http://inklingmarkets.com/).
+
+
 Getting Started
----------------
+===============
 
 ```bash
- git clone insert_url_here
+ git clone git@github.com:federis/rails-chef.git
  cd rails-chef
  gem install knife-solo
  gem install berkshelf
  ```
 
-Adding a New Cookbook to site-cookbooks
----------------------------------------
+ Adding an app
+ -------------
 
-We add cookbooks that we created to the site-cookbooks folder, since Librarian manages community cookbooks in the cookbooks directory. You can add a new one via:
+ ### Add a databag
 
-```bash
- knife cookbook create cookbook_name_here -o site-cookbooks/
-```
+ Add a file to ```databags/apps/```, similar to the example in that directory. To generate a password for the deploy user, you can do ```openssl passwd -1 "plantextpassword"``` and replace the user password with the output of that command.
 
+ In order to generate postgres passwords, you need to take the md5 hash of passwordapp_name, prepend it with the text "md5", and add that as the postgres app_password (e.g. the md5 of my_passwordmy_app is 31f512a71a75ddd5c0e41b189b8974b1, so you would put md531f512a71a75ddd5c0e41b189b8974b1 for the postgres app_password). You need to do the same for the postgres user, using the md5 of my_passwordpostgres.
 
-Adding New Community Cookbooks
-------------------------------
+ ### Add a node
 
-Add a line to the Berksfile such as 
-
-```ruby
- cookbook 'nginx'
-```
-
-Then run:
-
-```bash
- berks install
-```
+ You also need to add a node for your app. It should be named with the IP or FQDN of your server (e.g. 123.123.123.123.json). You then need to populate the run list, similar to the ```nodes/example.json``` file. This file should also include your rails app name, and the data bag for the app. The value of the data_bag attribute in this file should match the id value in your databag.
 
 
 Setting Up a New Server
@@ -41,7 +32,7 @@ Prep the Server
 ---------------
 
 ```bash
- knife solo prepare username@ip_address
+ knife solo prepare username@123.123.123.123
 ```
 
 This will install chef-solo on the target machine.
@@ -51,32 +42,15 @@ Run Chef on the Server
 ----------------------
 
 ```bash
- knife solo cook username@ip_address
+ knife solo cook username@123.123.123.123
 ```
 
 or to specify a node to use:
 
 ```bash
- knife solo cook username@ip_address nodes/staging.json
+ knife solo cook username@123.123.123.123 nodes/staging.json
 ```
 
-
-Set the DB_PASS Environment Var
--------------------------------
-
-If the server you're setting up includes the appserver role (ie. an app server or staging server), then you need to set the DB_PASS environment variable to the db user's password. In the deploy user's bashrc file, you should put the following:
-
-export DB_PASS=dbpasswordhere
-
-This line must be placed above the line containing [ -z "$PS1" ] && return
-
-
-Deploy With Capistrano
-----------------------
-
-```bash
- cap stage_name deploy
-```
 
 Configuration
 =============
@@ -131,4 +105,34 @@ Add (or create) the ip-addresses of the client nodes to the ```"rails_servers"``
 
 ```javascript
 "rails_servers" : ["74.125.225.38","98.139.183.24"]
+```
+
+
+
+Adding Cookbooks
+================
+
+Adding a New Cookbook to site-cookbooks
+---------------------------------------
+
+We add cookbooks that we created to the site-cookbooks folder, since Berkshelf manages community cookbooks in the cookbooks directory. You can add a new one via:
+
+```bash
+ knife cookbook create cookbook_name_here -o site-cookbooks/
+```
+
+
+Adding New Community Cookbooks
+------------------------------
+
+Add a line to the Berksfile such as 
+
+```ruby
+ cookbook 'nginx'
+```
+
+Then run:
+
+```bash
+ berks install
 ```
