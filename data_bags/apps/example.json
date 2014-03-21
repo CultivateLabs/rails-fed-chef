@@ -13,5 +13,8 @@
     "password" : "md5plus-output-here", //password for the postgres user, an md5 of passwordpostgres
     "allowed_app_servers" : ["127.0.0.1"]
   },
-  "rails_env" : "production"
+  "rails_env" : "production",
+  "ruby": {
+    "ruby-build-version" : "2.0.0-p353"
+  }
 }
