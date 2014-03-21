@@ -1,4 +1,6 @@
-This chef kitchen was created for use with [Inked](https://www.inkedcrm.com) and [SecondCityBits](https://www.secondcitybits.com). Also, special thanks for contributions from the team at [Inkling Markets](http://inklingmarkets.com/).
+Created for use with [Inked](https://www.inkedcrm.com) and [SecondCityBits](https://www.secondcitybits.com). Also, special thanks for contributions from the team at [Inkling Markets](http://inklingmarkets.com/).
+
+This chef kitchen can be used to quickly set up servers for use with a standard rails stack. Cookbooks include postgres, mysql, nginx, unicorn, nodejs, redis, and memcache. It also attempts to perform some typical tasks like postgres backups, setting up ufw firewall rules, and installing fail2ban.
 
 
 Getting Started
