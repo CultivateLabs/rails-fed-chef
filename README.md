@@ -66,7 +66,7 @@ Add MySQL deploy user password to the data-bag:
 
 ```javascript
 "mysql_configuration": {
-"password": "app_password"
+  "password": "app_password"
 }
 ```
 
@@ -74,12 +74,12 @@ Add MySQL server configuration to the MySQL server node:
 
 ```javascript
 "mysql": {
-"server_debian_password": "abc",
-"server_root_password": "def",
-"server_repl_password": "ghi",
-"client": {
-  "packages": ["mysql-client", "libmysqlclient-dev", "ruby-mysql"]
-}
+  "server_debian_password": "abc",
+  "server_root_password": "def",
+  "server_repl_password": "ghi",
+  "client": {
+    "packages": ["mysql-client", "libmysqlclient-dev", "ruby-mysql"]
+  }
 }
 
 ```
