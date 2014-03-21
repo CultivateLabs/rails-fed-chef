@@ -1,0 +1,1 @@
+default['postgres']['allowed_app_servers'] = []

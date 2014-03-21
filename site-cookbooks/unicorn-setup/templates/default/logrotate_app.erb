@@ -1,0 +1,11 @@
+/var/www/apps/<%= node['app_name'] %>/shared/log/*.log{
+  missingok
+  compress
+  dateext
+  delaycompress
+
+  lastaction
+    pid=/var/www/apps/inkling/shared/pids/unicorn.pid
+    test -s $pid && kill -USR1 "$(cat $pid)"
+  endscript
+}

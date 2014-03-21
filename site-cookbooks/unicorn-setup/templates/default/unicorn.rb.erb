@@ -1,0 +1,43 @@
+# Adapted from https://github.com/defunkt/unicorn/blob/master/examples/unicorn.conf.rb
+
+root = "<%= node[:app_deploy_dir] %>"
+
+worker_processes <%= node['unicorn']['worker_processes'] %>
+
+working_directory "#{root}/current";
+
+listen "/tmp/unicorn.<%= node[:app_name] %>.sock", :backlog => 64
+
+# nuke workers after 30 seconds instead of 60 seconds (the default)
+timeout 30
+
+pid "#{root}/shared/pids/unicorn.pid"
+
+# By default, the Unicorn logger will write to stderr.
+# Additionally, ome applications/frameworks log to stderr or stdout,
+# so prevent them from going to /dev/null when daemonized here:
+stderr_path "#{root}/shared/log/unicorn.stderr.log"
+stdout_path "#{root}/shared/log/unicorn.stdout.log"
+
+preload_app true
+
+before_exec do |server|
+  ENV['BUNDLE_GEMFILE'] = "#{root}/current/Gemfile"
+end
+
+before_fork do |server, worker|
+  defined?(ActiveRecord::Base) && ActiveRecord::Base.connection.disconnect!
+ 
+  old_pid = "#{root}/shared/pids/unicorn.pid.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
+    begin
+      Process.kill("QUIT", File.read(old_pid).to_i)
+    rescue Errno::ENOENT, Errno::ESRCH
+      puts "Old master alerady dead"
+    end
+  end
+end
+
+after_fork do |server, worker|
+  defined?(ActiveRecord::Base) && ActiveRecord::Base.establish_connection
+end

@@ -1,0 +1,19 @@
+{
+  "run_list": [
+    "role[base]",
+    "role[webserver]",
+    "role[appserver]",
+    "role[caching]",
+    "role[mysql]"
+  ],
+  "app_name" : "mysql-sample",
+  "data_bag" : "mysql-sample-data",
+  "mysql": {
+    "server_debian_password": "abc",
+    "server_root_password": "def",
+    "server_repl_password": "ghi",
+    "client": {
+      "packages": ["mysql-client", "libmysqlclient-dev", "ruby-mysql"]
+    }
+  }
+}

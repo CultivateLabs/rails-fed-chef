@@ -1,0 +1,81 @@
+{
+  "sources": {
+    "apt": {
+      "locked_version": "2.3.0"
+    },
+    "git": {
+      "locked_version": "2.7.0"
+    },
+    "build-essential": {
+      "locked_version": "1.4.2"
+    },
+    "ufw": {
+      "locked_version": "0.7.0"
+    },
+    "nginx": {
+      "locked_version": "2.0.4"
+    },
+    "memcached": {
+      "locked_version": "1.6.2"
+    },
+    "redisio": {
+      "locked_version": "1.7.0"
+    },
+    "chef-newrelic-monitoring": {
+      "locked_version": "1.0.0",
+      "git": "https://github.com/8thBridge/chef-newrelic-monitoring",
+      "ref": "7ad9c806b686f14fa30683390d41652f9083515f"
+    },
+    "mysql": {
+      "locked_version": "4.0.6"
+    },
+    "database": {
+      "locked_version": "1.5.2"
+    },
+    "ruby_build": {
+      "locked_version": "0.8.0"
+    },
+    "dmg": {
+      "locked_version": "2.0.8"
+    },
+    "yum": {
+      "locked_version": "2.4.4"
+    },
+    "windows": {
+      "locked_version": "1.11.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
+    "runit": {
+      "locked_version": "1.4.0"
+    },
+    "firewall": {
+      "locked_version": "0.11.2"
+    },
+    "bluepill": {
+      "locked_version": "2.3.0"
+    },
+    "rsyslog": {
+      "locked_version": "1.9.0"
+    },
+    "ohai": {
+      "locked_version": "1.1.12"
+    },
+    "ulimit": {
+      "locked_version": "0.3.2"
+    },
+    "openssl": {
+      "locked_version": "1.1.0"
+    },
+    "postgresql": {
+      "locked_version": "3.3.4"
+    },
+    "aws": {
+      "locked_version": "1.0.0"
+    },
+    "xfs": {
+      "locked_version": "1.1.0"
+    }
+  }
+}

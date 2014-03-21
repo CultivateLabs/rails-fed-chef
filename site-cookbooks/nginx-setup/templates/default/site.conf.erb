@@ -1,0 +1,39 @@
+upstream app_server {
+  server unix:/tmp/unicorn.<%= node[:app_name] %>.sock fail_timeout=0;
+}
+
+server {
+  listen 80 default deferred;
+
+  client_max_body_size 4G;
+  server_name _;
+
+  keepalive_timeout 5;
+
+  root <%= "#{node[:app_deploy_dir]}/current/public" %>;
+
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
+  }
+
+  error_page 503 @maintenance;
+  location @maintenance {
+    rewrite  ^(.*)$  /system/maintenance.html last;
+    break;
+  }
+
+  try_files $uri/index.html $uri.html $uri @app;
+
+  location @app {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+
+    proxy_pass http://app_server;
+  }
+
+  error_page 500 502 503 504 /500.html;
+  location = /500.html {
+    root <%= "#{node[:app_deploy_dir]}/current/public" %>;
+  }
+}

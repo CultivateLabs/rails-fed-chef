@@ -1,0 +1,8 @@
+# TYPE  DATABASE    USER        CIDR-ADDRESS          METHOD
+local   all         postgres                          ident
+local   all         postgres                          md5
+host    all         postgres    127.0.0.1/32          md5
+<% node['app_data']['postgres']['allowed_app_servers'].each do |server| -%>
+host    <%= node['app_name'] %>_<%= node['app_data']['rails_env'] %> <%= node['app_name'] %>  <%= server %>/32 md5
+<% end -%>
+local   <%= node['app_name'] %>_<%= node['app_data']['rails_env'] %> <%= node['app_name'] %>                   md5
