@@ -54,6 +54,50 @@ knife solo cook username@123.123.123.123 nodes/staging.json
 ```
 
 
+Deploying Your Rails App to the Server
+======================================
+
+Assuming you are using capistrano, you need to set your deploy_to path:
+
+```ruby
+set :deploy_to, '/var/www/apps/my_app_name'
+```
+
+You also need to set your database username to the same as your app name, since that is how the chef recipe sets up the user in postgres. Something like: 
+
+```
+production:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: my_app_name_production
+  pool: 5
+  username: my_app_name
+  password: my_password
+```
+
+Also, add stop, start, and reset tasks to your deploy script for unicorn. Something like:
+
+```
+namespace :deploy do
+  %w[start stop restart].each do |command|
+    desc "#{command} unicorn server"
+    task command do
+      on roles(:app) do |host|
+        execute "/etc/init.d/unicorn #{command}"
+      end
+    end
+  end
+
+  after :finishing, 'deploy:cleanup'
+end
+
+after 'deploy:publishing', 'deploy:restart'
+```
+
+We do NOT install or use rvm, so you should not need capistrano's rvm integration.
+
+
 Configuration
 =============
 
