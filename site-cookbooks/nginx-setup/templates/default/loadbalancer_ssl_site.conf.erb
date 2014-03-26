@@ -1,4 +1,5 @@
 upstream backend  {
+  ip_hash;
 <% if node['app_data']['app_servers'] %>
   <% node['app_data']['app_servers'].each do |server| %>
     server <%= server %>;
