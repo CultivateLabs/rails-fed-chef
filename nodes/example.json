@@ -9,6 +9,6 @@
     "role[database]",
     "role[jobs]"
   ],
-  "app_name" : "my_rails_app"
+  "app_name" : "my_rails_app",
   "data_bag" : "my-rails-app"
 }
