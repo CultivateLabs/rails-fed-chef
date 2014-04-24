@@ -32,6 +32,12 @@
     "database": {
       "locked_version": "1.5.2"
     },
+    "imagemagick": {
+      "locked_version": "0.2.2"
+    },
+    "cron": {
+      "locked_version": "1.2.8"
+    },
     "ruby_build": {
       "locked_version": "0.8.0"
     },
