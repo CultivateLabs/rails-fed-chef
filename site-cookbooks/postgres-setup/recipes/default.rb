@@ -92,25 +92,29 @@ directory "/home/postgres" do
   recursive true
 end
 
-cookbook_file "pg_backup.config" do
-  backup false
-  path "/home/postgres/pg_backup.config"
-  owner "postgres"
-end
+# Create a cron job to perform local backups once a day.
+# This can be disabled by setting skip_simple_backup to true.
+unless node['app_data']['postgres']['skip_simple_backup']
+  cookbook_file "pg_backup.config" do
+    backup false
+    path "/home/postgres/pg_backup.config"
+    owner "postgres"
+  end
 
-cookbook_file "pg_backup.sh" do
-  backup false
-  path "/home/postgres/pg_backup.sh"
-  mode "0744"
-  owner "postgres"
-end
+  cookbook_file "pg_backup.sh" do
+    backup false
+    path "/home/postgres/pg_backup.sh"
+    mode "0744"
+    owner "postgres"
+  end
 
-cron "pg_backup" do
-  hour "5"
-  minute "0"
-  day "*"
-  user "postgres"
-  command "/home/postgres/pg_backup.sh"
+  cron "pg_backup" do
+    hour "5"
+    minute "0"
+    day "*"
+    user "postgres"
+    command "/home/postgres/pg_backup.sh"
+  end
 end
 
 node['app_data']['postgres']['allowed_app_servers'].each do |server|
