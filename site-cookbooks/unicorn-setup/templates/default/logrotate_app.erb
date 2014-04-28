@@ -5,7 +5,7 @@
   delaycompress
 
   lastaction
-    pid=/var/www/apps/inkling/shared/pids/unicorn.pid
+    pid=<%= node[:app_deploy_dir] %>/shared/pids/unicorn.pid
     test -s $pid && kill -USR1 "$(cat $pid)"
   endscript
 }
