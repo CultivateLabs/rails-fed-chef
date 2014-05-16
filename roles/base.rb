@@ -6,5 +6,6 @@ run_list(
   "recipe[build-essential]",
   "recipe[ruby_build]",
   "recipe[base]", 
-  "recipe[ufw]"
+  "recipe[ufw]",
+  "recipe[nodejs-setup]"
 )
