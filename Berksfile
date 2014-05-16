@@ -12,6 +12,10 @@ cookbook 'chef-newrelic-monitoring', :git => 'https://github.com/8thBridge/chef-
 cookbook 'mysql'
 cookbook 'database'
 
+cookbook 'imagemagick'
+
+cookbook 'cron'
+
 group :ruby do
   cookbook 'ruby_build'
 end

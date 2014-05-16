@@ -1,0 +1,128 @@
+# encoding: utf-8
+
+##
+#
+# For more information about Backup's components, see the documentation at:
+# http://meskyanichi.github.io/backup
+#
+Model.new("<%= node['app_name'].to_sym %>_<%= node['app_data']['rails_env'].to_sym %>_backup", "<%= node['app_name'] %>_<%= node['app_data']['rails_env'] %> DB Backup") do
+
+  <% if node['app_data']['postgres'] %>
+    ##
+    # PostgreSQL [Database]
+    #
+    database PostgreSQL do |db|
+      # To dump all databases, set `db.name = :all` (or leave blank)
+      db.name               = "<%= node['app_name'] %>_<%= node['app_data']['rails_env'] %>"
+      db.username           = "postgres"
+      db.password           = "<%= node['app_data']['postgres']['unencrypted_password'] %>"
+      db.host               = "localhost"
+      db.port               = 5432
+      # db.socket             = "/tmp/pg.sock"
+      # When dumping all databases, `skip_tables` and `only_tables` are ignored.
+      # db.skip_tables        = ["skip", "these", "tables"]
+      # db.only_tables        = ["only", "these", "tables"]
+      # db.additional_options = ["-xc", "-E=utf8"]
+    end
+  <% end %>
+
+  <% if node['app_data']['mysql_configuration'] %>
+    ##
+    # MySQL [Database]
+    #
+    database MySQL do |db|
+      # To dump all databases, set `db.name = :all` (or leave blank)
+      db.name               = "<%= node['app_name'] %>_<%= node['app_data']['rails_env'] %>"
+      db.username           = "root"
+      db.password           = "<%= node['mysql']['server_root_password'] %>"
+      db.host               = "localhost"
+      db.port               = 3306
+      # supplying a `socket` negates `host` and `port`
+      # db.socket             = "/tmp/mysql.sock"
+      # Note: when using `skip_tables` with the `db.name = :all` option,
+      # table names must be prefixed with a database name.
+      # e.g. ["db_name.table_to_skip", ...]
+      # db.skip_tables        = ["skip", "these", "tables"]
+      # db.only_tables        = ["only", "these" "tables"]
+      # db.additional_options = ["--quick", "--single-transaction"]
+    end
+  <% end %>
+
+  <% if node['backup']['aws'] %>
+    ##
+    # Amazon Simple Storage Service [Storage]
+    #
+    store_with S3 do |s3|
+      # AWS Credentials
+      s3.access_key_id     = "<%= node['backup']['aws']['access_key_id'] %>"
+      s3.secret_access_key = "<%= node['backup']['aws']['secret_access_key'] %>"
+      # Or, to use a IAM Profile:
+      # s3.use_iam_profile = true
+
+      <% if node['backup']['aws']['region'] %>
+        s3.region            = "<%= node['backup']['aws']['region'] %>"
+      <% end %>
+      s3.bucket            = "<%= node['backup']['aws']['bucket'] %>"
+      s3.path              = "<%= node['backup']['aws']['path'] %>"
+    end
+  <% end %>
+
+  ##
+  # Local (Copy) [Storage]
+  #
+  store_with Local do |local|
+    local.path       = "~/backups/"
+    local.keep       = 5
+  end
+
+  <% if node['backup']['password'] %>
+    encrypt_with OpenSSL do |encryption|
+      encryption.password = "<%= node['backup']['password'] %>"
+      encryption.base64   = true
+      encryption.salt     = true
+    end
+  <% end %>
+
+  ##
+  # Gzip [Compressor]
+  #
+  compress_with Gzip
+
+  <% if node['backup']['hipchat'] %>
+    ##
+    # Hipchat [Notifier]
+    #
+    notify_by Hipchat do |hipchat|
+      hipchat.on_success = true
+      hipchat.on_warning = true
+      hipchat.on_failure = true
+
+      hipchat.token          = "<%= node['backup']['hipchat']['token'] %>"
+      hipchat.from           = "DB Backup" # 15 Character Max
+      hipchat.rooms_notified = ["<%= node['backup']['hipchat']['room'] %>"]
+      hipchat.success_color  = "green"
+      hipchat.warning_color  = "yellow"
+      hipchat.failure_color  = "red"
+    end
+  <% end %>
+
+  <% if node['backup']['notify_mail'] %>
+    notify_by Mail do |mail|
+      mail.on_success           = false
+      mail.on_warning           = true
+      mail.on_failure           = true
+
+      # mail.delivery_method      = :sendmail
+      mail.from                 = '<%= node['backup']['notify_mail']['from'] %>'
+      mail.to                   = '<%= node['backup']['notify_mail']['to'] %>'
+      mail.address              = '<%= node['backup']['notify_mail']['address'] %>'
+      # mail.port                 = <%= node['backup']['notify_mail']['port'] %>
+      # mail.user_name            = '<%= node['backup']['notify_mail']['user_name'] %>'
+      # mail.password             = '<%= node['backup']['notify_mail']['password'] %>'
+      mail.domain               = '<%= node['backup']['notify_mail']['hostname'] %>'
+      # mail.authentication       = 'plain'
+      # mail.encryption           = :starttls# 
+    end
+  <% end %>
+
+end
