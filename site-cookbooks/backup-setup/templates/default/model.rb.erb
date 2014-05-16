@@ -15,7 +15,7 @@ Model.new("<%= node['app_name'].to_sym %>_<%= node['app_data']['rails_env'].to_s
       # To dump all databases, set `db.name = :all` (or leave blank)
       db.name               = "<%= node['app_name'] %>_<%= node['app_data']['rails_env'] %>"
       db.username           = "postgres"
-      db.password           = "<%= node['app_data']['postgres']['password'] %>"
+      db.password           = "<%= node['app_data']['postgres']['unencrypted_password'] %>"
       db.host               = "localhost"
       db.port               = 5432
       # db.socket             = "/tmp/pg.sock"
