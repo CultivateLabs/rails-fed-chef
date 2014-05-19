@@ -88,14 +88,14 @@ Model.new("<%= node['app_name'].to_sym %>_<%= node['app_data']['rails_env'].to_s
   #
   compress_with Gzip
 
-  <% if node['backup']['hipchat'] %>
+  <% if node['backup']['hipchat']['enabled'] %>
     ##
     # Hipchat [Notifier]
     #
     notify_by Hipchat do |hipchat|
-      hipchat.on_success = true
-      hipchat.on_warning = true
-      hipchat.on_failure = true
+      hipchat.on_success = <%= node['backup']['hipchat']['on_success'] %>
+      hipchat.on_warning = <%= node['backup']['hipchat']['on_warning'] %>
+      hipchat.on_failure = <%= node['backup']['hipchat']['on_failure'] %>
 
       hipchat.token          = "<%= node['backup']['hipchat']['token'] %>"
       hipchat.from           = "DB Backup" # 15 Character Max
@@ -106,11 +106,11 @@ Model.new("<%= node['app_name'].to_sym %>_<%= node['app_data']['rails_env'].to_s
     end
   <% end %>
 
-  <% if node['backup']['notify_mail'] %>
+  <% if node['backup']['notify_mail']['enabled'] %>
     notify_by Mail do |mail|
-      mail.on_success           = false
-      mail.on_warning           = true
-      mail.on_failure           = true
+      mail.on_success           = <%= node['backup']['notify_mail']['on_success'] %>
+      mail.on_warning           = <%= node['backup']['notify_mail']['on_warning'] %>
+      mail.on_failure           = <%= node['backup']['notify_mail']['on_failure'] %>
 
       # mail.delivery_method      = :sendmail
       mail.from                 = '<%= node['backup']['notify_mail']['from'] %>'
