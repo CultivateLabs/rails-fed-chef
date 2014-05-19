@@ -62,8 +62,9 @@ cookbook_file "50unattended-upgrades" do
 end
 
 if app_data['newrelic'] && app_data['newrelic']['license_key']
-  node.default['newrelic']['license_key'] = app_data['newrelic']['license_key']
-  include_recipe "chef-newrelic-monitoring"
+  node.default['newrelic']['license'] = app_data['newrelic']['license_key']
+  include_recipe "newrelic"
+  include_recipe "newrelic::server-monitor-agent"
 end
 
 ruby_build_ruby app_data['ruby']['ruby-build-version'] do

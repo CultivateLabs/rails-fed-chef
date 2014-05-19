@@ -7,7 +7,7 @@ cookbook 'ufw'
 cookbook 'nginx'
 cookbook 'memcached'
 cookbook 'redisio'
-cookbook 'chef-newrelic-monitoring', :git => 'https://github.com/8thBridge/chef-newrelic-monitoring'
+cookbook 'newrelic'
 
 cookbook 'mysql'
 cookbook 'database'

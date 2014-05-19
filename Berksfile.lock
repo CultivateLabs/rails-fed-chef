@@ -21,10 +21,8 @@
     "redisio": {
       "locked_version": "1.7.0"
     },
-    "chef-newrelic-monitoring": {
-      "locked_version": "1.0.0",
-      "git": "https://github.com/8thBridge/chef-newrelic-monitoring",
-      "ref": "7ad9c806b686f14fa30683390d41652f9083515f"
+    "newrelic": {
+      "locked_version": "0.5.5"
     },
     "mysql": {
       "locked_version": "4.0.6"
@@ -70,6 +68,21 @@
     },
     "ulimit": {
       "locked_version": "0.3.2"
+    },
+    "php": {
+      "locked_version": "1.2.6"
+    },
+    "xml": {
+      "locked_version": "1.2.0"
+    },
+    "python": {
+      "locked_version": "1.4.4"
+    },
+    "ms_dotnet4": {
+      "locked_version": "1.0.2"
+    },
+    "curl": {
+      "locked_version": "1.1.0"
     },
     "openssl": {
       "locked_version": "1.1.0"
