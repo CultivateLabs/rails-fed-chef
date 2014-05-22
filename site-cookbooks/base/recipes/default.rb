@@ -61,12 +61,6 @@ cookbook_file "50unattended-upgrades" do
   action :create_if_missing
 end
 
-if app_data['newrelic'] && app_data['newrelic']['license_key']
-  node.default['newrelic']['license'] = app_data['newrelic']['license_key']
-  include_recipe "newrelic"
-  include_recipe "newrelic::server-monitor-agent"
-end
-
 ruby_build_ruby app_data['ruby']['ruby-build-version'] do
   if app_data['ruby']['configure-opts']
     environment({ 'CONFIGURE_OPTS' => "#{app_data['ruby']['configure-opts']}" })
