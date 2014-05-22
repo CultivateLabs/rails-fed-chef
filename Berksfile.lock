@@ -1,100 +1,99 @@
-{
-  "sources": {
-    "apt": {
-      "locked_version": "2.3.0"
-    },
-    "git": {
-      "locked_version": "2.7.0"
-    },
-    "build-essential": {
-      "locked_version": "1.4.2"
-    },
-    "ufw": {
-      "locked_version": "0.7.0"
-    },
-    "nginx": {
-      "locked_version": "2.0.4"
-    },
-    "memcached": {
-      "locked_version": "1.6.2"
-    },
-    "redisio": {
-      "locked_version": "1.7.0"
-    },
-    "newrelic": {
-      "locked_version": "0.5.5"
-    },
-    "mysql": {
-      "locked_version": "4.0.6"
-    },
-    "database": {
-      "locked_version": "1.5.2"
-    },
-    "imagemagick": {
-      "locked_version": "0.2.2"
-    },
-    "cron": {
-      "locked_version": "1.2.8"
-    },
-    "ruby_build": {
-      "locked_version": "0.8.0"
-    },
-    "dmg": {
-      "locked_version": "2.0.8"
-    },
-    "yum": {
-      "locked_version": "2.4.4"
-    },
-    "windows": {
-      "locked_version": "1.11.0"
-    },
-    "chef_handler": {
-      "locked_version": "1.1.4"
-    },
-    "runit": {
-      "locked_version": "1.4.0"
-    },
-    "firewall": {
-      "locked_version": "0.11.2"
-    },
-    "bluepill": {
-      "locked_version": "2.3.0"
-    },
-    "rsyslog": {
-      "locked_version": "1.9.0"
-    },
-    "ohai": {
-      "locked_version": "1.1.12"
-    },
-    "ulimit": {
-      "locked_version": "0.3.2"
-    },
-    "php": {
-      "locked_version": "1.2.6"
-    },
-    "xml": {
-      "locked_version": "1.2.0"
-    },
-    "python": {
-      "locked_version": "1.4.4"
-    },
-    "ms_dotnet4": {
-      "locked_version": "1.0.2"
-    },
-    "curl": {
-      "locked_version": "1.1.0"
-    },
-    "openssl": {
-      "locked_version": "1.1.0"
-    },
-    "postgresql": {
-      "locked_version": "3.3.4"
-    },
-    "aws": {
-      "locked_version": "1.0.0"
-    },
-    "xfs": {
-      "locked_version": "1.1.0"
-    }
-  }
-}
+DEPENDENCIES
+  apt
+  build-essential
+  cron
+  database
+  git
+  imagemagick
+  memcached
+  mysql
+  newrelic
+  nginx
+  redisio
+  ruby_build
+  ufw
+
+GRAPH
+  apt (2.4.0)
+  aws (2.2.0)
+  bluepill (2.3.1)
+    rsyslog (>= 0.0.0)
+  build-essential (2.0.2)
+  chef_handler (1.1.6)
+  cron (1.4.0)
+  curl (2.0.0)
+  database (2.2.0)
+    aws (>= 0.0.0)
+    mysql (>= 5.0.0)
+    mysql-chef_gem (>= 0.0.0)
+    postgresql (>= 1.0.0)
+    xfs (>= 0.0.0)
+  dmg (2.2.0)
+  firewall (0.11.6)
+  git (4.0.2)
+    build-essential (>= 0.0.0)
+    dmg (>= 0.0.0)
+    runit (>= 1.0.0)
+    windows (>= 0.0.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
+  imagemagick (0.2.3)
+  memcached (1.7.2)
+    runit (~> 1.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
+  ms_dotnet4 (1.0.2)
+    windows (>= 0.0.0)
+  mysql (5.2.10)
+  mysql-chef_gem (0.0.2)
+    build-essential (>= 0.0.0)
+    mysql (>= 0.0.0)
+  newrelic (1.0.4)
+    curl (>= 0.0.0)
+    ms_dotnet4 (>= 0.0.0)
+    nodejs (>= 0.0.0)
+    php (>= 0.0.0)
+    python (>= 0.0.0)
+  nginx (2.7.0)
+    apt (~> 2.2)
+    bluepill (~> 2.3)
+    build-essential (~> 2.0)
+    ohai (~> 2.0)
+    runit (~> 1.2)
+    yum-epel (~> 0.3)
+  nodejs (1.3.0)
+    apt (>= 0.0.0)
+    build-essential (>= 0.0.0)
+    yum (>= 0.0.0)
+  ohai (2.0.0)
+  openssl (1.1.0)
+  php (1.2.6)
+    build-essential (>= 0.0.0)
+    mysql (>= 0.0.0)
+    xml (>= 0.0.0)
+  postgresql (3.4.0)
+    apt (>= 1.9.0)
+    build-essential (>= 0.0.0)
+    openssl (>= 0.0.0)
+  python (1.4.6)
+    build-essential (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  redisio (1.7.1)
+    ulimit (>= 0.1.2)
+  rsyslog (1.12.2)
+  ruby_build (0.8.0)
+  runit (1.5.10)
+    build-essential (>= 0.0.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
+  ufw (0.7.4)
+    firewall (>= 0.9.0)
+  ulimit (0.3.2)
+  windows (1.31.0)
+    chef_handler (>= 0.0.0)
+  xfs (1.1.0)
+  xml (1.2.4)
+    build-essential (>= 0.0.0)
+  yum (3.2.0)
+  yum-epel (0.3.6)
+    yum (~> 3.0)

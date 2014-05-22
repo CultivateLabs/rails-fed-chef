@@ -1,4 +1,4 @@
-site :opscode
+source "https://api.berkshelf.com"
 
 cookbook 'apt'
 cookbook 'git'
@@ -16,6 +16,4 @@ cookbook 'imagemagick'
 
 cookbook 'cron'
 
-group :ruby do
-  cookbook 'ruby_build'
-end
+cookbook 'ruby_build'
