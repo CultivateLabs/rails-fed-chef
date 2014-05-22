@@ -73,7 +73,7 @@ ruby_block "update-bashrc" do
 export RUBYOPT="rubygems"
 export PATH="/usr/local/ruby/#{app_data['ruby']['ruby-build-version']}/bin:$PATH"
 alias current="cd #{node[:app_deploy_dir]}/current"
-alias console="cd #{node[:app_deploy_dir]}/current && RAILS_ENV=#{node[:app_data][:rails_env]} bundle exec rails c"
+alias console="cd #{node[:app_deploy_dir]}/current && RAILS_ENV=#{app_data[:rails_env]} bundle exec rails c"
     EOS
 
     f = File.open("/home/#{app_data["user"]["name"]}/.bashrc")
