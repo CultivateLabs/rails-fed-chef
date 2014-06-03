@@ -45,7 +45,7 @@ directory "/var/www/apps" do
   mode "0755"
 end
 
-%w{ vim libcurl4-gnutls-dev libssl-dev unattended-upgrades fail2ban }.each do |pkg_name|
+%w{ vim libcurl4-gnutls-dev libssl-dev libsasl2-dev unattended-upgrades fail2ban }.each do |pkg_name|
   package pkg_name
 end
 
