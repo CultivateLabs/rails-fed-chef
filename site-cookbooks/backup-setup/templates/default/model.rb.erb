@@ -49,21 +49,39 @@ Model.new("<%= node['app_name'].to_sym %>_<%= node['app_data']['rails_env'].to_s
   <% end %>
 
   <% if node['backup']['aws'] %>
+
     ##
     # Amazon Simple Storage Service [Storage]
     #
     store_with S3 do |s3|
+
+      time = Time.now
+      if time.day == 1  # first day of the month
+        storage_id = :monthly
+        keep = <%= (node['backup']['aws']['keep'] && node['backup']['aws']['keep']['monthly']) ? node['backup']['aws']['keep']['monthly'] : '6' %>
+      elsif time.sunday?
+        storage_id = :weekly
+        keep = <%= (node['backup']['aws']['keep'] && node['backup']['aws']['keep']['weekly']) ? node['backup']['aws']['keep']['weekly'] : '4' %>
+      else
+        storage_id = :daily
+        keep = <%= (node['backup']['aws']['keep'] && node['backup']['aws']['keep']['daily']) ? node['backup']['aws']['keep']['daily'] : '12' %>
+      end
+
       # AWS Credentials
       s3.access_key_id     = "<%= node['backup']['aws']['access_key_id'] %>"
       s3.secret_access_key = "<%= node['backup']['aws']['secret_access_key'] %>"
       # Or, to use a IAM Profile:
       # s3.use_iam_profile = true
 
+      # Encrypt
+      s3.encryption = :aes256
+
       <% if node['backup']['aws']['region'] %>
         s3.region            = "<%= node['backup']['aws']['region'] %>"
       <% end %>
       s3.bucket            = "<%= node['backup']['aws']['bucket'] %>"
       s3.path              = "<%= node['backup']['aws']['path'] %>"
+
     end
   <% end %>
 
