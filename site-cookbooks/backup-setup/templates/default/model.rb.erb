@@ -59,7 +59,7 @@ Model.new("<%= node['app_name'].to_sym %>_<%= node['app_data']['rails_env'].to_s
       if time.day == 1  # first day of the month
         storage_id = :monthly
         keep = <%= (node['backup']['aws']['keep'] && node['backup']['aws']['keep']['monthly']) ? node['backup']['aws']['keep']['monthly'] : '6' %>
-      elsif time.sunday?
+      elsif time.wday == 0
         storage_id = :weekly
         keep = <%= (node['backup']['aws']['keep'] && node['backup']['aws']['keep']['weekly']) ? node['backup']['aws']['keep']['weekly'] : '4' %>
       else
