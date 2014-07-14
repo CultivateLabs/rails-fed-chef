@@ -53,6 +53,16 @@ or to specify a node to use:
 knife solo cook username@123.123.123.123 nodes/staging.json
 ```
 
+Set the DB_PASS Environment Var
+===============================
+If the server you're setting up includes the appserver role (ie. an app server or staging server), then you need to set the DB_PASS environment variable to the db user's password. In the deploy user's bashrc file, you should put the following:
+
+```bash
+export DB_PASS=dbpasswordhere
+```
+
+This line must be placed above the line containing [ -z "$PS1" ] && return
+
 
 Deploying Your Rails App to the Server
 ======================================
@@ -73,7 +83,7 @@ production:
   database: my_app_name_production
   pool: 5
   username: my_app_name
-  password: my_password
+  password: ENV['DB_PASS']
 ```
 
 Also, add stop, start, and reset tasks to your deploy script for unicorn. Something like:
