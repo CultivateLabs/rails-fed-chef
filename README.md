@@ -83,7 +83,7 @@ production:
   database: my_app_name_production
   pool: 5
   username: my_app_name
-  password: ENV['DB_PASS']
+  password: <%= ENV['DB_PASS'] %>
 ```
 
 Also, add stop, start, and reset tasks to your deploy script for unicorn. Something like:
