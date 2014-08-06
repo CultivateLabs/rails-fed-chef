@@ -17,3 +17,5 @@ cookbook 'imagemagick'
 cookbook 'cron'
 
 cookbook 'ruby_build'
+
+cookbook 'nfs'
