@@ -1,11 +1,12 @@
 /var/www/apps/<%= node['app_name'] %>/shared/log/*.log{
+  daily
+  maxsize=200M
   missingok
   compress
-  dateext
+  rotate 5000
   delaycompress
-
-  lastaction
-    pid=<%= node[:app_deploy_dir] %>/shared/pids/unicorn.pid
-    test -s $pid && kill -USR1 "$(cat $pid)"
-  endscript
+  notifempty
+  copytruncate
+  dateext
+  dateformat -%Y-%m-%d-%s
 }
