@@ -11,6 +11,7 @@ DEPENDENCIES
   nginx
   redisio
   ruby_build
+  sudo
   ufw
 
 GRAPH
@@ -86,6 +87,7 @@ GRAPH
     build-essential (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
+  sudo (2.7.0)
   ufw (0.7.4)
     firewall (>= 0.9.0)
   ulimit (0.3.2)

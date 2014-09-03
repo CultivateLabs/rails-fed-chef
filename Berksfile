@@ -3,6 +3,7 @@ source "https://api.berkshelf.com"
 cookbook 'apt'
 cookbook 'git'
 cookbook 'build-essential'
+cookbook 'sudo'
 cookbook 'ufw'
 cookbook 'nginx'
 cookbook 'memcached'

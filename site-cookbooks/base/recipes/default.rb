@@ -14,10 +14,13 @@ Chef::Application.fatal! "You must create a data bag for your app" unless app_da
 
 user app_data["user"]["name"] do
   password app_data["user"]["password"]
-  gid "sudo"
   home "/home/#{app_data["user"]["name"]}"
   supports manage_home: true
   shell "/bin/bash"
+end
+
+sudo app_data["user"]["name"] do
+  user app_data["user"]["name"]
 end
 
 directory "/home/#{app_data["user"]["name"]}/.ssh" do
