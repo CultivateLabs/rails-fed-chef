@@ -8,6 +8,7 @@ DEPENDENCIES
   memcached
   mysql
   newrelic
+  nfs
   nginx
   redisio
   ruby_build
@@ -39,6 +40,7 @@ GRAPH
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
   imagemagick (0.2.3)
+  line (0.5.1)
   memcached (1.7.2)
     runit (~> 1.0)
     yum (~> 3.0)
@@ -55,6 +57,8 @@ GRAPH
     nodejs (>= 0.0.0)
     php (>= 0.0.0)
     python (>= 0.0.0)
+  nfs (2.0.0)
+    line (>= 0.0.0)
   nginx (2.7.0)
     apt (~> 2.2)
     bluepill (~> 2.3)

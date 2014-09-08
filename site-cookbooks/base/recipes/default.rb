@@ -66,7 +66,10 @@ end
 
 ruby_build_ruby app_data['ruby']['ruby-build-version'] do
   if app_data['ruby']['configure-opts']
-    environment({ 'CONFIGURE_OPTS' => "#{app_data['ruby']['configure-opts']}" })
+    environment({ 
+      'CONFIGURE_OPTS' => "#{app_data['ruby']['configure-opts']}", 
+      'CFLAGS' => "#{app_data['ruby']['cflags']}"
+      })
   end
 end
 

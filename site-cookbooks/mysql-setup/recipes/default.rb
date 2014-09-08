@@ -28,20 +28,24 @@ ohai "reload" do
   action :reload
 end
 
-mysql_configuration['allowed_app_servers'].each do |server|
+mysql_database_user database_name do
+  connection(mysql_connection_info)
+  username node['app_name']
+  password mysql_configuration['password']
+  table "*"
+  host "%"
+  action :grant
+end
 
-  mysql_database_user database_name do
-    connection(mysql_connection_info)
-    username node['app_name']
-    password mysql_configuration['password']
-    table "*"
-    host "#{server}/32"
-    action :grant
-  end
+mysql_configuration['allowed_app_servers'].each do |server|
 
   firewall_rule "mysql" do
     port      3306
-    source    "#{server}/32"
+    if server.include? "/"
+      source    "#{server}"
+    else
+      source    "#{server}/32"
+    end
     action    :allow
   end
 
