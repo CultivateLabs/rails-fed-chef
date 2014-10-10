@@ -1,5 +1,5 @@
 name "appserver"
-run_list "recipe[unicorn-setup]", "recipe[nodejs-setup]"
+run_list "recipe[unicorn-setup]", "recipe[nodejs-setup]", "recipe[imagemagick]"
 
 default_attributes(
   :unicorn => {
