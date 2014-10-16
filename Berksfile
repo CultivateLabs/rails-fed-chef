@@ -9,14 +9,10 @@ cookbook 'nginx'
 cookbook 'memcached'
 cookbook 'redisio'
 cookbook 'newrelic'
-
 cookbook 'mysql'
 cookbook 'database'
-
 cookbook 'imagemagick'
-
 cookbook 'cron'
-
 cookbook 'ruby_build'
-
 cookbook 'nfs'
+cookbook 'scout', git: 'git@github.com:scoutapp/scout_cookbooks.git'

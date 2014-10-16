@@ -12,6 +12,9 @@ DEPENDENCIES
   nginx
   redisio
   ruby_build
+  scout
+    git: git@github.com:scoutapp/scout_cookbooks.git
+    revision: 642ed1e37fd3d92624032dd23855aaf6edb7d3b2
   sudo
   ufw
 
@@ -91,6 +94,7 @@ GRAPH
     build-essential (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
+  scout (0.4.0)
   sudo (2.7.0)
   ufw (0.7.4)
     firewall (>= 0.9.0)
