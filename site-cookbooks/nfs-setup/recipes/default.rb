@@ -3,9 +3,16 @@ include_recipe "nfs"
 app_data = node.default['app_data'] = data_bag_item("apps", node['data_bag'] || node['app_name'])
 
 app_data['nfs']['export_folders'].each do |folder|
+
+  directory "#{app_data['nfs']['export_dir']}#{folder}" do
+    action :create
+    owner app_data["user"]["name"]
+    mode "0755"
+  end
+
   nfs_export "#{app_data['nfs']['export_dir']}#{folder}" do
     network app_data['rails_servers']
-    writeable true 
+    writeable true
     sync true
     options ['no_root_squash', 'no_subtree_check']
   end
