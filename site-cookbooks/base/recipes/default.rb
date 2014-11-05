@@ -66,8 +66,8 @@ end
 
 ruby_build_ruby app_data['ruby']['ruby-build-version'] do
   if app_data['ruby']['configure-opts']
-    environment({ 
-      'CONFIGURE_OPTS' => "#{app_data['ruby']['configure-opts']}", 
+    environment({
+      'CONFIGURE_OPTS' => "#{app_data['ruby']['configure-opts']}",
       'CFLAGS' => "#{app_data['ruby']['cflags']}"
       })
   end
@@ -75,11 +75,18 @@ end
 
 ruby_block "update-bashrc" do
   block do
+
+    console_command = if app_data['ruby']['ruby-build-version'] == "ree-1.8.7-2012.02"
+      "script/console"
+    else
+      "rails c"
+    end
+
     new_text = <<-EOS
 export RUBYOPT="rubygems"
 export PATH="/usr/local/ruby/#{app_data['ruby']['ruby-build-version']}/bin:$PATH"
 alias current="cd #{node[:app_deploy_dir]}/current"
-alias console="cd #{node[:app_deploy_dir]}/current && RAILS_ENV=#{app_data['rails_env']} bundle exec rails c"
+alias console="cd #{node[:app_deploy_dir]}/current && RAILS_ENV=#{app_data['rails_env']} bundle exec #{console_command}"
     EOS
 
     f = File.open("/home/#{app_data["user"]["name"]}/.bashrc")
