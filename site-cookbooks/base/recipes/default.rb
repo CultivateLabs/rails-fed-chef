@@ -89,7 +89,7 @@ alias current="cd #{node[:app_deploy_dir]}/current"
 alias console="cd #{node[:app_deploy_dir]}/current && RAILS_ENV=#{app_data['rails_env']} bundle exec #{console_command}"
     EOS
 
-    f = File.open("/home/#{app_data["user"]["name"]}/.bashrc")
+    f = File.open("~/.bashrc")
     file = f.read
     f.close
 
@@ -99,9 +99,9 @@ alias console="cd #{node[:app_deploy_dir]}/current && RAILS_ENV=#{app_data['rail
       new_file.write file
       new_file.close
 
-      File.rename("/home/#{app_data["user"]["name"]}/.bashrc", "/home/#{app_data["user"]["name"]}/.bashrc.old")
-      File.rename("/home/#{app_data["user"]["name"]}/.bashrc.new", "/home/#{app_data["user"]["name"]}/.bashrc")
-      File.delete("/home/#{app_data["user"]["name"]}/.bashrc.old")
+      File.rename("~/.bashrc", "~/.bashrc.old")
+      File.rename("~/.bashrc.new", "~/.bashrc")
+      File.delete("~/.bashrc.old")
     end
   end
 end
