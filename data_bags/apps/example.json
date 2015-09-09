@@ -23,6 +23,6 @@
   },
   "rails_env" : "production",
   "ruby": {
-    "ruby-build-version" : "2.0.0-p353"
+    "ruby-build-version" : "2.1.1"
   }
 }
